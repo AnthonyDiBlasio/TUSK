@@ -3,6 +3,7 @@
 ## Description
 Tusk or Task Utiltily and Streamlining Kit is a project management software designed to represent a lite version of similar services provided such as: Jira, Monday, TRELLO, etc.
 ## User-Story
+As a project manager, I want to be able to create and assign tasks to team members, set deadlines, and track the progress of each task, so that I can effectively manage the workflow and ensure timely completion of the project
 
 ## Table of Contents
 * [Description](#description)
@@ -14,7 +15,7 @@ Tusk or Task Utiltily and Streamlining Kit is a project management software desi
 * [Tests](#tests)
 * [Questions](#questions)
 ## Installation
-Simply navigate to the sites domain 
+Simply navigate to the sites domain
 ## Usage
 To provide potential employers a comprehensive look about my software development skills, agile development knowledge, as well as knowledge of different project manament solutions 
 ## License
