@@ -1,5 +1,5 @@
 # TUSK
-![apace](https://img.shields.io/badge/license-Apache%20License%202.0-blue)
+![MIT License](https://img.shields.io/badge/license-MIT-blue)
 ## Description
 Tusk or Task Utiltily and Streamlining Kit is a project management software designed to represent a lite version of similar services provided such as: Jira, Monday, TRELLO, etc.
 ## User-Story
