@@ -28,4 +28,4 @@ This application is covered by the MIT License, the terms of which can be found 
 test
 ## Questions
 [GitHub Profile](https://github.com/AnthonyDiBlasio/)  
-I can be reached at anthony.diblasio11@gmai.com.
+I can be reached at anthony.diblasio11@gmail.com.
