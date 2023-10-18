@@ -25,7 +25,7 @@ This application is covered by the MIT License, the terms of which can be found 
 ## Contributing
 [GitHub Profile](https://github.com/AnthonyDiBlasio/)  
 ## Tests
-test
+
 ## Questions
 [GitHub Profile](https://github.com/AnthonyDiBlasio/)  
 I can be reached at anthony.diblasio11@gmail.com.
