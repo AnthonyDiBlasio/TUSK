@@ -28,11 +28,11 @@ router.post('/users', async (req, res) => {
     const { username, email, password, projects, tasks } = req.body;
     const user = await User.create(
       {
-        username,
-        email,
-        password,
-        Projects: projects, // Assuming projects is an array of project objects
-        Tasks: tasks, // Assuming tasks is an array of task objects
+        username:username,
+        email:email,
+        password:password,
+        Projects: projects, 
+        Tasks: tasks, 
       },
       {
         include: [Project, Task],
