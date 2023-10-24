@@ -1,4 +1,4 @@
-const { User, Project, Task } = require('./models');
+const { User, Project, Task } = require('../models/index');
 
 const seedDatabase = async () => {
   try {
@@ -10,8 +10,8 @@ const seedDatabase = async () => {
 
     // Seed projects
     const projects = await Project.bulkCreate([
-      { name: 'Project 1', description: 'Description for Project 1', UserId: users[0].id },
-      { name: 'Project 2', description: 'Description for Project 2', UserId: users[1].id },
+      { name: 'Project 1', description: 'Description for Project 1', user_id: users[0].id },
+      { name: 'Project 2', description: 'Description for Project 2', user_id: users[1].id },
     ]);
 
     // Seed tasks

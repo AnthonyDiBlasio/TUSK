@@ -27,12 +27,12 @@ router.post('/tasks', async (req, res) => {
     const { name, description, user_id, project_id, due_date, status } = req.body;
     const task = await Task.create(
       {
-        name,
-        description,
-        user_id,
-        project_id,
-        due_date,
-        status,
+        name: name,
+        description: description,
+        user_id: user_id,
+        project_id: project_id,
+        due_date: due_date,
+        status: status,
       }
     );
     res.json(task);
