@@ -1,18 +1,18 @@
-const project = require('./project');
-const task = require('./task');
-const user = require('./user');
+const Project = require('./project');
+const Task = require('./task');
+const User = require('./user');
 
 //* User model relationships*//
-user.hasMany(project, {foreignKey:'user_id'});
-user.hasMany(task, {foreignKey:'user_id'});
+User.hasMany(Project, {foreignKey:'user_id'});
+User.hasMany(Task, {foreignKey:'user_id'});
 
 
 //* Project model relationships*//
-project.belongsTo(user, {foreignKey:'user_id'});
-project.hasMany(task), {foreignKey:'project_id'};
+Project.belongsTo(User, {foreignKey:'user_id'});
+Project.hasMany(Task), {foreignKey:'project_id'};
 
 //* Task model relationships *//
-task.belongsTo(user, {foreignKey:'user_id'});
-task.belongsTo(project, {foreignKey:'project_id'});
+Task.belongsTo(User, {foreignKey:'user_id'});
+Task.belongsTo(Project, {foreignKey:'project_id'});
 
-module.exports = {user,project,task};
+module.exports = {User,Project,Task};
