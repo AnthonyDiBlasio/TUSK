@@ -25,12 +25,12 @@ router.get('/users', async (req, res) => {
 // Create a new user with associated projects and tasks
 router.post('/users', async (req, res) => {
   try {
-    const { username, email, password, projects, tasks } = req.body;
+    const { username, email, password_hash, projects, tasks } = req.body;
     const user = await User.create(
       {
-        username:username,
-        email:email,
-        password:password,
+        username: username,
+        email: email,
+        password_hash: password_hash,
         Projects: projects, 
         Tasks: tasks, 
       },
@@ -49,12 +49,12 @@ router.post('/users', async (req, res) => {
 router.put('/users/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { username, email, password } = req.body;
+    const { username, email, password_hash } = req.body;
     const user = await User.findByPk(id);
     if (user) {
       user.username = username;
       user.email = email;
-      user.password = password;
+      user.password_hash = password_hash;
       await user.save();
       res.json(user);
     } else {
