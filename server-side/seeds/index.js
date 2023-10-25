@@ -1,11 +1,12 @@
-const { User, Project, Task } = require('../models/index');
+const { User, Project, Task,} = require('../models/index');
+const sequelize = require('../config/connection');
 
 const seedDatabase = async () => {
   try {
     // Seed users
     const users = await User.bulkCreate([
-      { username: 'user1', email: 'user1@example.com', password: 'password1' },
-      { username: 'user2', email: 'user2@example.com', password: 'password2' },
+      { username: 'user1', email: 'user1@example.com', password_hash: 'password1' },
+      { username: 'user2', email: 'user2@example.com', password_hash: 'password2' },
     ]);
 
     // Seed projects
