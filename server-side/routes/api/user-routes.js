@@ -4,7 +4,7 @@ const { User, Project, Task } = require('../../models/index');
 const router = express.Router();
 
 // Get all users with associated projects and tasks
-router.get('/users', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const users = await User.findAll({
       include: [
@@ -23,7 +23,7 @@ router.get('/users', async (req, res) => {
 });
 
 // Create a new user with associated projects and tasks
-router.post('/users', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { username, email, password_hash, projects, tasks } = req.body;
     const user = await User.create(
@@ -31,13 +31,23 @@ router.post('/users', async (req, res) => {
         username: username,
         email: email,
         password_hash: password_hash,
-        Projects: projects, 
-        Tasks: tasks, 
-      },
-      {
-        include: [Project, Task],
       }
     );
+    
+    if (projects) {
+      for (let project of projects) {
+        const createdProject = await Project.create(project);
+        await user.addProject(createdProject);
+      }
+    }
+
+    if (tasks) {
+      for (let task of tasks) {
+        const createdTask = await Task.create(task);
+        await user.addTask(createdTask);
+      }
+    }
+
     res.json(user);
   } catch (error) {
     console.error(error);
@@ -46,7 +56,7 @@ router.post('/users', async (req, res) => {
 });
 
 // Update a user's information
-router.put('/users/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { username, email, password_hash } = req.body;
@@ -67,7 +77,7 @@ router.put('/users/:id', async (req, res) => {
 });
 
 // Delete a user
-router.delete('/users/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findByPk(id);

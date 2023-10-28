@@ -4,7 +4,7 @@ const { User, Project, Task } = require('../../models/index');
 const router = express.Router();
 
 // Get all tasks with associated user and project
-router.get('/tasks', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const tasks = await Task.findAll({
       include: [
