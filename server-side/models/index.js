@@ -3,16 +3,15 @@ const Task = require('./task');
 const User = require('./user');
 
 //* User model relationships*//
-User.hasMany(Project, {foreignKey:'user_id'});
-User.hasMany(Task, {foreignKey:'user_id'});
-
+User.hasMany(Project, { foreignKey: 'user_id' });
+User.hasMany(Task, { foreignKey: 'user_id' });
 
 //* Project model relationships*//
-Project.belongsTo(User, {foreignKey:'user_id'});
-Project.hasMany(Task), {foreignKey:'project_id'};
+Project.belongsTo(User, { foreignKey: 'user_id' });
+Project.hasMany(Task, { foreignKey: 'project_id' }); // Fixed the syntax issue here
 
 //* Task model relationships *//
-Task.belongsTo(User, {foreignKey:'user_id'});
-Task.belongsTo(Project, {foreignKey:'project_id'});
+Task.belongsTo(User, { foreignKey: 'user_id' });
+Task.belongsTo(Project, { foreignKey: 'project_id' });
 
-module.exports = {User,Project,Task};
+module.exports = { User, Project, Task };
