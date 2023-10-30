@@ -1,9 +1,17 @@
+
 const express = require('express');
+const app = express();
 const routes = require('./routes');
+
+const cors = require('cors');
+
+
+app.use(cors());
+
 // import sequelize connection
 const sequelize = require('./config/connection');
 
-const app = express();
+
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
