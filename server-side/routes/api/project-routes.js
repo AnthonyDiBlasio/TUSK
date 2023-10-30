@@ -20,9 +20,23 @@ router.get('/', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+router.get('/:id', async (req, res) => {
+  try {
+    const projectId = req.params.id;
+    const project = await Project.findByPk(projectId);
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    res.json(project);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 // Create a new project with associated user and tasks
-router.post('/projects', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { name, description, user_id, tasks } = req.body;
     const project = await Project.create(
@@ -44,7 +58,7 @@ router.post('/projects', async (req, res) => {
 });
 
 // Update a project's information
-router.put('/projects/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { name, description } = req.body;
@@ -64,7 +78,7 @@ router.put('/projects/:id', async (req, res) => {
 });
 
 // Delete a project
-router.delete('/projects/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const project = await Project.findByPk(id);

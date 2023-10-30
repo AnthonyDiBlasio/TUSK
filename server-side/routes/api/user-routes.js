@@ -21,6 +21,20 @@ router.get('/', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+router.get('/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 // Create a new user with associated projects and tasks
 router.post('/', async (req, res) => {
