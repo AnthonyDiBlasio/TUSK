@@ -24,11 +24,11 @@ User.init(
     },
     created_at: {
       type: DataTypes.DATE,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
       type: DataTypes.DATE,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.NOW,
     },
   },
   {
