@@ -20,9 +20,23 @@ router.get('/', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+router.get('/:id', async (req, res) => {
+  try {
+    const taskId = req.params.id;
+    const task = await Task.findByPk(taskId);
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+    res.json(task);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 // Create a new task with associated user and project
-router.post('/tasks', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { name, description, user_id, project_id, due_date, status } = req.body;
     const task = await Task.create(
@@ -43,7 +57,7 @@ router.post('/tasks', async (req, res) => {
 });
 
 // Update a task's information
-router.put('/tasks/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { name, description, due_date, status } = req.body;
@@ -65,7 +79,7 @@ router.put('/tasks/:id', async (req, res) => {
 });
 
 // Delete a task
-router.delete('/tasks/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const task = await Task.findByPk(id);
