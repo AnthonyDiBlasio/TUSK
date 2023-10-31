@@ -3,6 +3,47 @@ const { User, Project, Task } = require('../../models/index');
 
 const router = express.Router();
 
+
+//User SignUp route
+router.post('/signup', async (req, res) => {
+  try {
+    const user = await User.create(req.body);
+    const token = signToken(user);
+    res.json({ user, token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+// User login route
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const validPassword = await user.validatePassword(password);
+    if (!validPassword) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const token = signToken(user);
+    res.json({ user, token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+// Logout route
+router.get('/logout', async (req, res) => {
+  // Remove the user's token from client-side storage
+  // For example, if using JWT, you might clear the token from local storage or cookies
+
+  // Optionally, you can send a response to confirm the logout
+  res.json({ message: 'User logged out successfully' });
+});
 // Get all users with associated projects and tasks
 router.get('/', async (req, res) => {
   try {
