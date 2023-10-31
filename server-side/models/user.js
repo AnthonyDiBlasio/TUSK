@@ -2,6 +2,7 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 const db = require('../config/connection');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+
 const saltRounds = 10; // Define the saltRounds for bcrypt
 
 const secret = 'mysecretsshhhhh';
@@ -42,13 +43,17 @@ User.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    password: {
+      type: DataTypes.VIRTUAL,
+      allowNull: false,
+      set(value) {
+        this.setDataValue('password', value);
+        this.setDataValue('password_hash', bcrypt.hashSync(value, 10));
+      },
+    },
     password_hash: {
       type: DataTypes.TEXT,
       allowNull: false,
-      set: async function (value) {
-        const hashedPassword = await User.generateHash(value);
-        this.setDataValue('password_hash', hashedPassword);
-      },
     },
     created_at: {
       type: DataTypes.DATE,

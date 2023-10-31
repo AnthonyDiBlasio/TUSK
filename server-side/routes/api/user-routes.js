@@ -1,5 +1,6 @@
 const express = require('express');
 const { User, Project, Task } = require('../../models/index');
+const { signToken } = require('../../utils/auth');
 
 const router = express.Router();
 
@@ -39,9 +40,8 @@ router.post('/login', async (req, res) => {
 // Logout route
 router.get('/logout', async (req, res) => {
   // Remove the user's token from client-side storage
-  // For example, if using JWT, you might clear the token from local storage or cookies
 
-  // Optionally, you can send a response to confirm the logout
+
   res.json({ message: 'User logged out successfully' });
 });
 // Get all users with associated projects and tasks
