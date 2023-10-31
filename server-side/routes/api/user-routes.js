@@ -88,7 +88,7 @@ router.post('/', async (req, res) => {
         password_hash: password_hash,
       }
     );
-    
+
     if (projects) {
       for (let project of projects) {
         const createdProject = await Project.create(project);
