@@ -8,7 +8,7 @@ User.hasMany(Task, { foreignKey: 'user_id' });
 
 //* Project model relationships*//
 Project.belongsTo(User, { foreignKey: 'user_id' });
-Project.hasMany(Task, { foreignKey: 'project_id' }); // Fixed the syntax issue here
+Project.hasMany(Task, { foreignKey: 'project_id' }); 
 
 //* Task model relationships *//
 Task.belongsTo(User, { foreignKey: 'user_id' });
