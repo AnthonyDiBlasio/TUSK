@@ -1,6 +1,7 @@
 const express = require('express');
 const { User, Project, Task } = require('../../models/index');
 const { signToken } = require('../../utils/auth');
+const { authMiddleware } = require('../../utils/auth');
 
 const router = express.Router();
 
@@ -147,5 +148,23 @@ router.delete('/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+router.get('/profile/:id', authMiddleware, async (req, res) => {
+  const userId = req.params.id; // Extract the user ID from the request parameters
+
+  try {
+    const user = await User.findByPk(userId, {
+      attributes: { exclude: ['password_hash'] },
+    });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+});
+
+
 
 module.exports = router;
