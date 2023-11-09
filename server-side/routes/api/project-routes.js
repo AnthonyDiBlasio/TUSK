@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Project, Task } = require('../../models/index');
+const { User, Project, Task, UserProject} = require('../../models/index');
 
 const router = express.Router();
 
@@ -93,5 +93,50 @@ router.delete('/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// Add a user to a project
+router.post('/:projectId/addUser', async (req, res) => {
+  const { projectId } = req.params;
+  const { userId } = req.body;
+
+  try {
+    const project = await Project.findByPk(projectId);
+    const user = await User.findByPk(userId);
+
+    if (!project || !user) {
+      return res.status(404).json({ message: 'Project or user not found.' });
+    }
+
+    await project.addUser(user);
+    res.json({ message: 'User added to project successfully.' });
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+// Add a user to a project by email
+router.post('/:projectId/addUser', async (req, res) => {
+  const { projectId } = req.params;
+  const { email } = req.body;
+
+  try {
+    const project = await Project.findByPk(projectId);
+    const user = await User.findOne({ where: { email } });
+
+    if (!project || !user) {
+      return res.status(404).json({ message: 'Project or user not found.' });
+    }
+
+    await project.addUser(user);
+    res.json({ message: 'User added to project successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
 
 module.exports = router;
