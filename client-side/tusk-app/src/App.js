@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CookieConsent from 'react-cookie-consent';
 import Home from './pages/Home';
 import NavTab from './components/NavTab';
-import Sidebar from './components/sidebar';
+
 import Signup from './components/Signup';
 import Login from './components/Login';
 import ProfilePage from './pages/ProfilePage';
@@ -13,7 +13,7 @@ const App = () => {
   return (
     <Router>
       <NavTab />
-      <Sidebar />
+    
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
