@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Project, Task } = require('../../models/index');
+const { User, Project, Task, UserProject } = require('../../models/index');
 
 const router = express.Router();
 
@@ -92,6 +92,34 @@ router.delete('/:id', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');
+  }
+});
+// Assign a task to project members
+router.post('/projects/:projectId/tasks/:taskId/assignMembers', async (req, res) => {
+  const { projectId, taskId } = req.params;
+  const { userIds } = req.body;
+
+  try {
+    const project = await Project.findByPk(projectId);
+    const task = await Task.findByPk(taskId);
+
+    if (!project || !task) {
+      return res.status(404).json({ message: 'Project or task not found.' });
+    }
+
+    const users = await User.findAll({ where: { id: userIds } });
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: 'No users found with the provided IDs.' });
+    }
+
+    await task.setProject(project);
+    await task.setUsers(users);
+
+    res.json({ message: 'Task assigned to project members successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
