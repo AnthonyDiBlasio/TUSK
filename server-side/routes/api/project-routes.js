@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 router.get('/:id', async (req, res) => {
   try {
     const projectId = req.params.id;
@@ -94,8 +95,8 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// Add a user to a project
-router.post('/:projectId/addUser', async (req, res) => {
+// Add a user to a project by id
+router.post('/:projectId/addUserId', async (req, res) => {
   const { projectId } = req.params;
   const { userId } = req.body;
 
