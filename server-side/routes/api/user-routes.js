@@ -149,21 +149,31 @@ router.delete('/:id', async (req, res) => {
   }
 });
 router.get('/profile/:id', authMiddleware, async (req, res) => {
-  const userId = req.params.id; // Extract the user ID from the request parameters
+  const userId = req.params.id;
 
   try {
     const user = await User.findByPk(userId, {
       attributes: { exclude: ['password_hash'] },
+      include: [
+        {
+          model: Project,
+          include: [Task],
+        },
+        Task,
+      ],
     });
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
+
     res.json(user);
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
   }
 });
+
 
 
 
